@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yue.mapper.MsgInfoMapper">
+    <select id="selectMsgInfoListByUserId" resultType="msgInfo">
+        SELECT * FROM msg_info
+        WHERE (
+                      (to_user_id = #{toUserId} AND from_user_id = #{fromUserId})
+                      OR (to_user_id = #{fromUserId} AND from_user_id = #{toUserId})
+                  )
+    </select>
+
+    <update id="updateMsgInfoRead">
+        UPDATE msg_info SET un_read_flag = 1 WHERE from_user_id = #{fromUserId} AND to_user_id = #{toUserId}
+    </update>
+</mapper>
